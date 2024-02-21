@@ -20,11 +20,29 @@ export default function LyricList() {
   const albums: Album = data;
   const searchTerm = "malam";
 
+  let usages = 0;
+  let songSet = new Set();
+
+  Object.entries(albums).forEach(([albumTitle, songs]) => {
+    Object.entries(songs).forEach(([songTitle, lyrics]) => {
+      lyrics.forEach((lyric) => {
+        if (lyric.lyric.includes(searchTerm)) {
+          usages++;
+          songSet.add(songTitle);
+        }
+      });
+    });
+  });
+
+  const songCount = songSet.size;
+
   return (
     <Card className="mt-4 max-h-[800px] max-w-[800px] p-3">
       <CardHeader className="flex gap-3">
         <div className="flex flex-col">
-          <p className="text-md font-medium">Found 46 usages in 24 songs</p>
+          <p className="text-md font-medium">
+            Found {usages} usages in {songCount} songs
+          </p>
         </div>
       </CardHeader>
       <Divider />
