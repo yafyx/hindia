@@ -8,8 +8,14 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 
+const ALBUMS = [
+  "Menari dengan Bayangan",
+  "Lagipula Hidup akan Berakhir (Bagian I)",
+  "Lagipula Hidup akan Berakhir (Bagian II)",
+];
+
 export default function FilterAlbum() {
-  const [selectedKeys, setSelectedKeys] = React.useState(new Set(["All"]));
+  const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
     [selectedKeys],
@@ -31,11 +37,11 @@ export default function FilterAlbum() {
           selectedKeys={selectedKeys}
           onSelectionChange={setSelectedKeys}
         >
-          <DropdownItem key="text">Text</DropdownItem>
-          <DropdownItem key="number">Number</DropdownItem>
-          <DropdownItem key="date">Date</DropdownItem>
-          <DropdownItem key="single_date">Single Date</DropdownItem>
-          <DropdownItem key="iteration">Iteration</DropdownItem>
+          {ALBUMS.map((album) => (
+            <DropdownItem key={album.replaceAll(" ", "_")}>
+              {album}
+            </DropdownItem>
+          ))}
         </DropdownMenu>
       </Dropdown>
     </>
