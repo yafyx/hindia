@@ -36,7 +36,7 @@ export default function InputText() {
           }
         />
       </label>
-      <Button
+      {/* <Button
         type="submit"
         isIconOnly
         color="warning"
@@ -44,7 +44,7 @@ export default function InputText() {
         aria-label="Take a photo"
       >
         <SearchIcon />
-      </Button>
+      </Button> */}
     </>
   );
 }

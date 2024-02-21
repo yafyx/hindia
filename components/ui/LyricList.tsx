@@ -36,6 +36,10 @@ export default function LyricList() {
 
   const songCount = songSet.size;
 
+  if (!searchTerm) {
+    return null;
+  }
+
   return (
     <Card className="mt-4 max-h-[800px] max-w-[800px] p-3">
       <CardHeader className="flex gap-3">
