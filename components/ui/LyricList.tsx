@@ -16,9 +16,8 @@ type Album = {
   [albumTitle: string]: Song;
 };
 
-export default function LyricList() {
+export default function LyricList({ searchTerm }) {
   const albums: Album = data;
-  const searchTerm = "malam";
 
   let usages = 0;
   let songSet = new Set();
@@ -62,8 +61,8 @@ export default function LyricList() {
                     <p>{lyric.lyric}</p>
                     <p>{lyric.next}</p>
                     <br />
-                    <p>
-                      {songTitle}, {albumTitle}
+                    <p className="font-semibold">
+                      {songTitle}, <span className="italic">{albumTitle}</span>
                     </p>
                   </div>
                   <Divider />

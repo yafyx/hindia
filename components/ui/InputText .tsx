@@ -3,13 +3,13 @@ import React, { useState, useEffect } from "react";
 import { Button, Input } from "@nextui-org/react";
 import { SearchIcon } from "../icons";
 
-export default function InputText() {
+export default function InputText({ setSearchTerm }) {
   return (
     <>
       <label>
         <Input
           label="Search"
-          isClearable
+          onChange={(e) => setSearchTerm(e.target.value)}
           radius="lg"
           classNames={{
             label: "text-black/50 dark:text-white/90",
