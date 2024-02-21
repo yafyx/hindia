@@ -54,20 +54,39 @@ export default function LyricList({ searchTerm }) {
           Object.entries(songs).map(([songTitle, lyrics]) =>
             lyrics
               .filter((lyric) => lyric.lyric.includes(searchTerm))
-              .map((lyric, index) => (
-                <>
-                  <div className="py-3" key={index}>
-                    <p>{lyric.prev}</p>
-                    <p>{lyric.lyric}</p>
-                    <p>{lyric.next}</p>
-                    <br />
-                    <p className="font-semibold">
-                      {songTitle}, <span className="italic">{albumTitle}</span>
-                    </p>
-                  </div>
-                  <Divider />
-                </>
-              )),
+              .map((lyric, index) => {
+                const parts = lyric.lyric.split(
+                  new RegExp(`(${searchTerm})`, "gi"),
+                );
+                return (
+                  <>
+                    <div className="py-3" key={index}>
+                      <p>{lyric.prev}</p>
+                      <p>
+                        {parts.map((part, i) =>
+                          part.toLowerCase() === searchTerm.toLowerCase() ? (
+                            <span
+                              key={i}
+                              className="underline decoration-sky-500 decoration-2"
+                            >
+                              {part}
+                            </span>
+                          ) : (
+                            part
+                          ),
+                        )}
+                      </p>
+                      <p>{lyric.next}</p>
+                      <br />
+                      <p className="font-semibold">
+                        {songTitle},{" "}
+                        <span className="italic">{albumTitle}</span>
+                      </p>
+                    </div>
+                    <Divider />
+                  </>
+                );
+              }),
           ),
         )}
       </CardBody>
