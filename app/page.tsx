@@ -23,7 +23,7 @@ export default function Home() {
           <Divider />
           <CardFooter className="flex justify-center">
             <small className="text-default-500">
-              Tip: you can use a * for wildcard search! Try rain*
+              Tip: you can use a * for wildcard search! Try mati*
             </small>
           </CardFooter>
         </Card>

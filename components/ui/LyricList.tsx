@@ -53,18 +53,20 @@ export default function LyricList({ searchTerm }) {
         {Object.entries(albums).map(([albumTitle, songs]) =>
           Object.entries(songs).map(([songTitle, lyrics]) =>
             lyrics
-              .filter((lyric) => lyric.lyric.includes(searchTerm))
+              .filter((lyric) => {
+                const regex = new RegExp(`\\b${searchTerm}\\w*\\b`, "gi");
+                return lyric.lyric.match(regex);
+              })
               .map((lyric, index) => {
-                const parts = lyric.lyric.split(
-                  new RegExp(`(${searchTerm})`, "gi"),
-                );
+                const regex = new RegExp(`(${searchTerm}\\w*)`, "gi");
+                const parts = lyric.lyric.split(regex);
                 return (
                   <>
                     <div className="py-3" key={index}>
                       <p>{lyric.prev}</p>
                       <p>
                         {parts.map((part, i) =>
-                          part.toLowerCase() === searchTerm.toLowerCase() ? (
+                          regex.test(part) ? (
                             <span
                               key={i}
                               className="underline decoration-sky-500 decoration-2"
