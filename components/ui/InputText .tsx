@@ -4,8 +4,12 @@ import { Button, Input } from "@nextui-org/react";
 import { SearchIcon } from "../icons";
 import { useDebouncedCallback } from "use-debounce";
 
-export default function InputText({ setSearchTerm }) {
-  const debouncedSearchTerm = useDebouncedCallback((value) => {
+export default function InputText({
+  setSearchTerm,
+}: {
+  setSearchTerm: (value: string) => void;
+}) {
+  const debouncedSearchTerm = useDebouncedCallback((value: string) => {
     setSearchTerm(value);
   }, 300);
 

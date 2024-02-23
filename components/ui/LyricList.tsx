@@ -2,7 +2,7 @@ import { Card, CardHeader, Divider, CardBody } from "@nextui-org/react";
 import data from "@/api/lyrics.json";
 import { Lyric, Song, Album } from "@/app/lib/definitions";
 
-export default function LyricList({ searchTerm }) {
+export default function LyricList({ searchTerm }: { searchTerm: string }) {
   const albums: Album = data;
 
   let usages = 0;

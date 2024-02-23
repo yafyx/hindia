@@ -14,11 +14,11 @@ export default function Home() {
       <p className="relative z-20 bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text py-8 text-4xl font-bold text-transparent sm:text-7xl">
         hindia lyrics searcher
       </p>
-      <div className="w-[800px]">
+      <div className="w-full sm:w-[800px]">
         <Card className="p-3">
           <CardBody className="gap-3">
             <InputText setSearchTerm={setSearchTerm} />
-            <FilterAlbum />
+            {/* <FilterAlbum /> */}
           </CardBody>
           <Divider />
           <CardFooter className="flex justify-center">
