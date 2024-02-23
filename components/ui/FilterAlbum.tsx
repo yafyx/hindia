@@ -23,7 +23,7 @@ export default function FilterAlbum() {
 
   return (
     <>
-      <Dropdown>
+      {/* <Dropdown>
         <DropdownTrigger>
           <Button variant="bordered" className="capitalize">
             Filter by album: {selectedValue}
@@ -43,7 +43,7 @@ export default function FilterAlbum() {
             </DropdownItem>
           ))}
         </DropdownMenu>
-      </Dropdown>
+      </Dropdown> */}
     </>
   );
 }
