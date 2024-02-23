@@ -25,7 +25,7 @@ export default function LyricList({ searchTerm }) {
   Object.entries(albums).forEach(([albumTitle, songs]) => {
     Object.entries(songs).forEach(([songTitle, lyrics]) => {
       lyrics.forEach((lyric) => {
-        if (lyric.lyric.includes(searchTerm)) {
+        if (lyric.lyric.toLowerCase().includes(searchTerm.toLowerCase())) {
           usages++;
           songSet.add(songTitle);
         }
@@ -55,7 +55,7 @@ export default function LyricList({ searchTerm }) {
             lyrics
               .filter((lyric) => {
                 const regex = new RegExp(`\\b${searchTerm}\\w*\\b`, "gi");
-                return lyric.lyric.match(regex);
+                return lyric.lyric.toLowerCase().match(regex);
               })
               .map((lyric, index) => {
                 const regex = new RegExp(`(${searchTerm}\\w*)`, "gi");
