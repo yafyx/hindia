@@ -2,14 +2,19 @@
 import React, { useState, useEffect } from "react";
 import { Button, Input } from "@nextui-org/react";
 import { SearchIcon } from "../icons";
+import { useDebouncedCallback } from "use-debounce";
 
 export default function InputText({ setSearchTerm }) {
+  const debouncedSearchTerm = useDebouncedCallback((value) => {
+    setSearchTerm(value);
+  }, 300);
+
   return (
     <>
       <label>
         <Input
           label="Search"
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => debouncedSearchTerm(e.target.value)}
           radius="lg"
           classNames={{
             label: "text-black/50 dark:text-white/90",
