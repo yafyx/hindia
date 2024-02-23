@@ -1,20 +1,6 @@
 import { Card, CardHeader, Divider, CardBody } from "@nextui-org/react";
 import data from "@/api/lyrics.json";
-
-type Lyric = {
-  lyric: string;
-  prev: string;
-  next: string;
-  multiplicity: number;
-};
-
-type Song = {
-  [songTitle: string]: Lyric[];
-};
-
-type Album = {
-  [albumTitle: string]: Song;
-};
+import { Lyric, Song, Album } from "@/app/lib/definitions";
 
 export default function LyricList({ searchTerm }) {
   const albums: Album = data;
