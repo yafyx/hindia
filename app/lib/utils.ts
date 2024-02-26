@@ -8,14 +8,17 @@ export function fetchLyrics() {
 export function foundUsage(albums: Album, searchTerm: string) {
     let usages = 0;
     let songSet = new Set();
+    const searchTerms = searchTerm.split(',').map(term => term.trim().toLowerCase());
 
     Object.entries(albums).forEach(([albumTitle, songs]) => {
         Object.entries(songs).forEach(([songTitle, lyrics]) => {
             lyrics.forEach((lyric) => {
-                if (lyric.lyric.toLowerCase().includes(searchTerm.toLowerCase())) {
-                    usages++;
-                    songSet.add(songTitle);
-                }
+                searchTerms.forEach((term) => {
+                    if (lyric.lyric.toLowerCase().includes(term)) {
+                        usages++;
+                        songSet.add(songTitle);
+                    }
+                });
             });
         });
     });
