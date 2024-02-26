@@ -1,25 +1,10 @@
 import { Card, CardHeader, Divider, CardBody } from "@nextui-org/react";
-import data from "@/api/lyrics.json";
-import { Lyric, Song, Album } from "@/app/lib/definitions";
+import { fetchLyrics, foundUsage } from "@/app/lib/utils";
+import { Album } from "@/app/lib/definitions";
 
 export default function LyricList({ searchTerm }: { searchTerm: string }) {
-  const albums: Album = data;
-
-  let usages = 0;
-  let songSet = new Set();
-
-  Object.entries(albums).forEach(([albumTitle, songs]) => {
-    Object.entries(songs).forEach(([songTitle, lyrics]) => {
-      lyrics.forEach((lyric) => {
-        if (lyric.lyric.toLowerCase().includes(searchTerm.toLowerCase())) {
-          usages++;
-          songSet.add(songTitle);
-        }
-      });
-    });
-  });
-
-  const songCount = songSet.size;
+  const albums: Album = fetchLyrics();
+  const { usages, songCount } = foundUsage(albums, searchTerm);
 
   if (!searchTerm) {
     return null;
