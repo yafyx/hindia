@@ -1,3 +1,3 @@
 # Hindia Lyrics Searcher
 
-This application is a Hindia lyrics searcher using Next.js 13 (app directory) and NextUI (v2).
+This application is a Hindia lyrics searcher using Next.js 14 and NextUI.

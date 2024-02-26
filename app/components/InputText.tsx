@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Button, Input } from "@nextui-org/react";
-import { SearchIcon } from "../icons";
+import { SearchIcon } from "@/app/components/icons";
 import { useDebouncedCallback } from "use-debounce";
 
 export default function InputText({

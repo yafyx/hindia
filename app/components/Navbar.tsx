@@ -4,7 +4,7 @@ import {
   NavbarContent,
   NavbarItem,
 } from "@nextui-org/navbar";
-import { ThemeSwitch } from "@/components/theme-switch";
+import { ThemeSwitch } from "@/app/components/theme-switch";
 import { Button } from "@nextui-org/button";
 import {
   Modal,
@@ -14,7 +14,7 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
-import { SparklesCore } from "./ui/Sparkles";
+import { SparklesCore } from "@/app/components/Sparkles";
 
 export const Navbar = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();

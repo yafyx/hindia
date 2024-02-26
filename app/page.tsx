@@ -1,21 +1,9 @@
 "use client";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  Divider,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "@nextui-org/react";
-import InputText from "@/components/ui/InputText ";
-import LyricList from "@/components/ui/LyricList";
-import FilterAlbum from "@/components/ui/FilterAlbum";
+import { Card, CardBody, CardFooter, Divider } from "@nextui-org/react";
+import InputText from "@/app/components/InputText";
+import LyricList from "@/app/components/LyricList";
+import FilterAlbum from "@/app/components/FilterAlbum";
 import { useState } from "react";
-import { SparklesCore } from "@/components/ui/Sparkles";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
