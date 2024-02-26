@@ -4,6 +4,7 @@ import { Album } from "@/app/lib/definitions";
 
 export default function LyricList({ searchTerm }: { searchTerm: string }) {
   const albums: Album = fetchLyrics();
+  const searchTerms = searchTerm.split(',').map(term => term.trim());
   const { usages, songCount } = foundUsage(albums, searchTerm);
 
   if (!searchTerm) {
@@ -25,19 +26,20 @@ export default function LyricList({ searchTerm }: { searchTerm: string }) {
           Object.entries(songs).map(([songTitle, lyrics]) =>
             lyrics
               .filter((lyric) => {
-                const regex = new RegExp(`\\b${searchTerm}\\w*\\b`, "gi");
-                return lyric.lyric.toLowerCase().match(regex);
+                return searchTerms.some((searchTerm) => {
+                  const regex = new RegExp(`\\b${searchTerm}\\w*\\b`, "gi");
+                  return lyric.lyric.toLowerCase().match(regex);
+                });
               })
               .map((lyric, index) => {
-                const regex = new RegExp(`(${searchTerm}\\w*)`, "gi");
-                const parts = lyric.lyric.split(regex);
+                const parts = lyric.lyric.split(new RegExp(`(${searchTerms.join('|')}\\w*)`, "gi"));
                 return (
                   <>
                     <div className="py-3" key={index}>
                       <p>{lyric.prev}</p>
                       <p>
                         {parts.map((part, i) =>
-                          regex.test(part) ? (
+                          new RegExp(`(${searchTerms.join('|')}\\w*)`, "gi").test(part) ? (
                             <span
                               key={i}
                               className="underline decoration-sky-500 decoration-2"

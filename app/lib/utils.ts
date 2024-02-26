@@ -1,7 +1,6 @@
 import data from "@/api/lyrics.json";
 import { Album } from "@/app/lib/definitions";
 
-
 export function fetchLyrics() {
     return data;
 }
