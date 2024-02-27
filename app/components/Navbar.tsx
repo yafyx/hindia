@@ -87,12 +87,12 @@ export const Navbar = () => {
                   />
                 </div>
                 <p className="font-bold">
-                  Made by Yafyx using Next.js. Lyrics scraped from Genius using
+                  made by yafyx using Next.js. lyrics scraped from Genius using
                   LyricsGenius.
                 </p>
-                Search for a word or a phrase and see all the places Hindia has
-                used it in her music! To search for multiple words or phrases,
-                use a comma between them. Use a * for wildcard search.
+                search for a word or a phrase and see all the places Hindia has
+                used it in his music! to search for multiple words or phrases,
+                use a comma between them. use a * for wildcard search.
               </ModalBody>
               <ModalFooter></ModalFooter>
             </>
