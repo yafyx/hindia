@@ -6,7 +6,7 @@ export function fetchLyrics() {
 
     Object.entries(albums).forEach(([albumTitle, songs]) => {
         Object.entries(songs).forEach(([songTitle, lyrics]) => {
-            albums[albumTitle][songTitle] = lyrics.filter((lyric) => lyric.lyric !== "You might also like[Bridge]");
+            albums[albumTitle][songTitle] = lyrics.filter((lyric) => !lyric.lyric.includes("You might also like"));
         });
     });
 
