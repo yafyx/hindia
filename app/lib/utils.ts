@@ -2,7 +2,15 @@ import data from "@/api/lyrics.json";
 import { Album } from "@/app/lib/definitions";
 
 export function fetchLyrics() {
-    return data;
+    let albums: Album = JSON.parse(JSON.stringify(data));
+
+    Object.entries(albums).forEach(([albumTitle, songs]) => {
+        Object.entries(songs).forEach(([songTitle, lyrics]) => {
+            albums[albumTitle][songTitle] = lyrics.filter((lyric) => lyric.lyric !== "You might also like[Bridge]");
+        });
+    });
+
+    return albums;
 }
 
 export function foundUsage(albums: Album, searchTerm: string) {
@@ -13,12 +21,10 @@ export function foundUsage(albums: Album, searchTerm: string) {
     Object.entries(albums).forEach(([albumTitle, songs]) => {
         Object.entries(songs).forEach(([songTitle, lyrics]) => {
             lyrics.forEach((lyric) => {
-                searchTerms.forEach((term) => {
-                    if (lyric.lyric.toLowerCase().includes(term)) {
-                        usages++;
-                        songSet.add(songTitle);
-                    }
-                });
+                if (searchTerms.some(term => lyric.lyric.toLowerCase().includes(term))) {
+                    usages++;
+                    songSet.add(songTitle);
+                }
             });
         });
     });
