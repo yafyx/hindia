@@ -7,6 +7,9 @@ import { useState } from "react";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedAlbums, setSelectedAlbums] = useState<Set<string>>(
+    new Set([]),
+  );
 
   return (
     <div className="relative mx-auto flex h-full w-full max-w-7xl flex-col items-center bg-white bg-grid-black/[0.2] dark:bg-black dark:bg-grid-white/[0.2]">
@@ -18,7 +21,10 @@ export default function Home() {
         <Card className="p-3">
           <CardBody className="gap-3">
             <InputText setSearchTerm={setSearchTerm} />
-            {/* <FilterAlbum /> */}
+            <FilterAlbum
+              selectedAlbums={selectedAlbums}
+              setSelectedAlbums={setSelectedAlbums}
+            />
           </CardBody>
           <Divider />
           <CardFooter className="flex justify-center">
@@ -28,7 +34,7 @@ export default function Home() {
             </small>
           </CardFooter>
         </Card>
-        <LyricList searchTerm={searchTerm} />
+        <LyricList searchTerm={searchTerm} selectedAlbums={selectedAlbums} />
       </div>
     </div>
   );

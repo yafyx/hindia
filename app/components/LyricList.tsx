@@ -1,10 +1,27 @@
+"use client";
+import React from "react";
 import { Card, CardHeader, Divider, CardBody } from "@nextui-org/react";
 import { fetchLyrics, foundUsage } from "@/app/lib/utils";
 import { Album } from "@/app/lib/definitions";
 
-export default function LyricList({ searchTerm }: { searchTerm: string }) {
+interface LyricMatch {
+  lyric: string;
+  prev: string;
+  next: string;
+  multiplicity: number;
+}
+
+interface LyricListProps {
+  searchTerm: string;
+  selectedAlbums: Set<string>;
+}
+
+export default function LyricList({
+  searchTerm,
+  selectedAlbums,
+}: LyricListProps) {
   const albums: Album = fetchLyrics();
-  const searchTerms = searchTerm.split(',').map(term => term.trim());
+  const searchTerms = searchTerm.split(",").map((term) => term.trim());
   const { usages, songCount } = foundUsage(albums, searchTerm);
 
   if (!searchTerm) {
@@ -22,48 +39,59 @@ export default function LyricList({ searchTerm }: { searchTerm: string }) {
       </CardHeader>
       <Divider />
       <CardBody>
-        {Object.entries(albums).map(([albumTitle, songs]) =>
-          Object.entries(songs).map(([songTitle, lyrics]) =>
-            lyrics
-              .filter((lyric) => {
-                return searchTerms.some((searchTerm) => {
-                  const regex = new RegExp(`\\b${searchTerm}\\w*\\b`, "gi");
-                  return lyric.lyric.toLowerCase().match(regex);
-                });
-              })
-              .map((lyric, index) => {
-                const parts = lyric.lyric.split(new RegExp(`(${searchTerms.join('|')}\\w*)`, "gi"));
-                return (
-                  <>
-                    <div className="py-3" key={index}>
-                      <p>{lyric.prev}</p>
-                      <p>
-                        {parts.map((part, i) =>
-                          new RegExp(`(${searchTerms.join('|')}\\w*)`, "gi").test(part) ? (
-                            <span
-                              key={i}
-                              className="underline decoration-sky-500 decoration-2"
-                            >
-                              {part}
-                            </span>
-                          ) : (
-                            part
-                          ),
-                        )}
-                      </p>
-                      <p>{lyric.next}</p>
-                      <br />
-                      <p className="font-semibold">
-                        {songTitle},{" "}
-                        <span className="italic">{albumTitle}</span>
-                      </p>
-                    </div>
-                    <Divider />
-                  </>
-                );
-              }),
-          ),
-        )}
+        {Object.entries(albums)
+          .filter(
+            ([albumTitle]) =>
+              selectedAlbums.size === 0 ||
+              selectedAlbums.has(albumTitle.replaceAll(" ", "_")),
+          )
+          .map(([albumTitle, songs]) =>
+            Object.entries(songs).map(([songTitle, lyrics]) =>
+              lyrics
+                .filter((lyric) => {
+                  return searchTerms.some((searchTerm) => {
+                    const regex = new RegExp(`\\b${searchTerm}\\w*\\b`, "gi");
+                    return lyric.lyric.toLowerCase().match(regex);
+                  });
+                })
+                .map((lyric, index) => {
+                  const parts = lyric.lyric.split(
+                    new RegExp(`(${searchTerms.join("|")}\\w*)`, "gi"),
+                  );
+                  return (
+                    <>
+                      <div className="py-3" key={index}>
+                        <p>{lyric.prev}</p>
+                        <p>
+                          {parts.map((part, i) =>
+                            new RegExp(
+                              `(${searchTerms.join("|")}\\w*)`,
+                              "gi",
+                            ).test(part) ? (
+                              <span
+                                key={i}
+                                className="underline decoration-sky-500 decoration-2"
+                              >
+                                {part}
+                              </span>
+                            ) : (
+                              part
+                            ),
+                          )}
+                        </p>
+                        <p>{lyric.next}</p>
+                        <br />
+                        <p className="font-semibold">
+                          {songTitle},{" "}
+                          <span className="italic">{albumTitle}</span>
+                        </p>
+                      </div>
+                      <Divider />
+                    </>
+                  );
+                }),
+            ),
+          )}
       </CardBody>
     </Card>
   );
